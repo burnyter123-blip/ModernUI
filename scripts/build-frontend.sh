@@ -17,7 +17,7 @@ BUNDLE="build/linux/x64/release/bundle"
 
 cp arcader-frontend.json "$BUNDLE/arcader-frontend.json"
 
-TARBALL="modern-frontend-linux-${ARCH}.tar.gz"
+TARBALL="build/modern-frontend-linux-${ARCH}.tar.gz"
 rm -f "$TARBALL"
 tar czf "$TARBALL" -C "$BUNDLE" .
 echo "Built $TARBALL"

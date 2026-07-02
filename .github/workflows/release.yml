@@ -34,14 +34,14 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: modern-frontend-x86_64
-        path: modern-frontend-linux-x86_64.tar.gz
+        path: build/modern-frontend-linux-x86_64.tar.gz
         retention-days: 30
 
     - name: Create Release
       if: startsWith(github.ref, 'refs/tags/')
       uses: softprops/action-gh-release@v1
       with:
-        files: modern-frontend-linux-x86_64.tar.gz
+        files: build/modern-frontend-linux-x86_64.tar.gz
         draft: false
         prerelease: false
       env:
