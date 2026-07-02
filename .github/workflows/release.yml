@@ -1,0 +1,48 @@
+name: Build Frontend
+
+on:
+  push:
+    branches: [ main ]
+    tags: [ 'v*' ]
+
+jobs:
+  build-frontend:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Install Linux build dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev
+
+    - name: Set up Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        channel: stable
+        flutter-version: 3.35.5
+
+    - name: Make scripts executable
+      run: chmod +x scripts/*.sh
+
+    - name: Build frontend
+      run: ./scripts/build-frontend.sh
+
+    - name: Upload tarball artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: modern-frontend-x86_64
+        path: modern-frontend-linux-x86_64.tar.gz
+        retention-days: 30
+
+    - name: Create Release
+      if: startsWith(github.ref, 'refs/tags/')
+      uses: softprops/action-gh-release@v1
+      with:
+        files: modern-frontend-linux-x86_64.tar.gz
+        draft: false
+        prerelease: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
