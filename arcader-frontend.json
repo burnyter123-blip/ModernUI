@@ -1,0 +1,16 @@
+{
+  "id": "modern",
+  "name": "Arcader Modern UI",
+  "description": "A modern Flutter frontend for Arcader.",
+  "author": "ArcaderProject",
+  "entry": "modern_frontend",
+  "entryArgs": [],
+  "compatibility": { "arcaderd": ">=0.1.0" },
+  "release": {
+    "provider": "github",
+    "repo": "burnyter123-blip/ModernUI",
+    "assets": {
+      "x86_64": "modern-frontend-linux-x86_64.tar.gz"
+    }
+  }
+}
